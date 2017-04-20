@@ -38,28 +38,7 @@ public class NonNullArrayList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            private int index = -1;
-
-            @Override
-            public boolean hasNext() {
-                return (index + 1) < size;
-            }
-
-            @Override
-            public E next() {
-                if (!hasNext())
-                    throw new NoSuchElementException();
-                return getItems()[++index];
-            }
-
-            @Override
-            public void remove() {
-                if (!hasNext())
-                    throw new NoSuchElementException();
-                NonNullArrayList.this.remove(index--);
-            }
-        };
+        return new ListIteratorImpl();
     }
 
     @Override
@@ -135,7 +114,7 @@ public class NonNullArrayList<E> implements List<E> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        Iterator<E> iterator = iterator();
+        Iterator<E> iterator = listIterator();
         while (iterator.hasNext()) {
             if (c.contains(iterator.next()))
                 iterator.remove();
@@ -230,65 +209,7 @@ public class NonNullArrayList<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator() {
-        return new ListIterator<E>() {
-            private int index = -1;
-
-            @Override
-            public boolean hasNext() {
-                return (index + 1) < size;
-            }
-
-            @Override
-            public E next() {
-                if (!hasNext())
-                    throw new NoSuchElementException();
-                return getItems()[++index];
-            }
-
-            @Override
-            public boolean hasPrevious() {
-                return index > 0;
-            }
-
-            @Override
-            public E previous() {
-                if(!hasPrevious())
-                    throw new NoSuchElementException();
-                return getItems()[--index];
-            }
-
-            @Override
-            public int nextIndex() {
-                return index + 1;
-            }
-
-            @Override
-            public int previousIndex() {
-                return Math.max(index - 1, -1);
-            }
-
-            @Override
-            public void remove() {
-                if (!hasNext())
-                    throw new NoSuchElementException();
-                NonNullArrayList.this.remove(index--);
-            }
-
-            @Override
-            public void set(E e) {
-                if(index == -1)
-                    throw new NoSuchElementException();
-                NonNullArrayList.this.set(index, e);
-            }
-
-            @Override
-            public void add(E e) {
-                if(index == -1)
-                    throw new NoSuchElementException();
-                checkCapacity(size + 1);
-                NonNullArrayList.this.add(e);
-            }
-        };
+        return new ListIteratorImpl();
     }
 
     @Override
@@ -296,5 +217,65 @@ public class NonNullArrayList<E> implements List<E> {
         return null;
     }
 
+
+    public class ListIteratorImpl implements ListIterator<E>  {
+        private int index = -1;
+
+        @Override
+        public boolean hasNext() {
+            return (index + 1) < size;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            return getItems()[++index];
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return index > 0;
+        }
+
+        @Override
+        public E previous() {
+            if(!hasPrevious())
+                throw new NoSuchElementException();
+            return getItems()[--index];
+        }
+
+        @Override
+        public int nextIndex() {
+            return index + 1;
+        }
+
+        @Override
+        public int previousIndex() {
+            return Math.max(index - 1, -1);
+        }
+
+        @Override
+        public void remove() {
+            if (index == -1)
+                throw new NoSuchElementException();
+            NonNullArrayList.this.remove(index--);
+        }
+
+        @Override
+        public void set(E e) {
+            if(index == -1)
+                throw new NoSuchElementException();
+            NonNullArrayList.this.set(index, e);
+        }
+
+        @Override
+        public void add(E e) {
+            if(index == -1)
+                throw new NoSuchElementException();
+            checkCapacity(size + 1);
+            NonNullArrayList.this.add(e);
+        }
+    }
 
 }
