@@ -27,7 +27,7 @@ public class Cell implements ICell {
         Currency withdrawn = currency.withdraw(requested);
         int left = requested - withdrawn.getBalance();
         List<Currency> withdrawnCurrencies = left != 0 ? next.withdraw(left) : new ArrayList<>();
-        if (requested != left)
+        if (withdrawn.getCount() != 0)
             withdrawnCurrencies.add(withdrawn);
         return withdrawnCurrencies;
     }

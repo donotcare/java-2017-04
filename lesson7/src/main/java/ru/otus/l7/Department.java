@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Department {
-    List<ATM> atms = new ArrayList<>();
+    private List<ATM> atms = new ArrayList<>();
 
     public void addAtm(ATM atm) {
         atms.add(atm);

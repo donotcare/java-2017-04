@@ -22,6 +22,10 @@ public class Currency {
         return new Currency(nominal, withdrawCount);
     }
 
+    public int getCount() {
+        return count;
+    }
+
     public int getNominal() {
         return nominal;
     }

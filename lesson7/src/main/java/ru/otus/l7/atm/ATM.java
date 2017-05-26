@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ATM {
-    Memento memento;
+    private Memento memento;
     private ICell firstCell;
 
     public ATM() {
