@@ -45,8 +45,7 @@ public class JsonSerializer {
         try {
             for (Field field : object.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
-                Object value = null;
-                value = field.get(object);
+                Object value = field.get(object);
                 json.put(field.getName(), parse(value));
             }
         } catch (IllegalAccessException e) {
