@@ -3,6 +3,7 @@ package ru.otus.l8;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
@@ -19,10 +20,10 @@ public class JsonSerializer {
             return "";
         }
         Class type = object.getClass();
-        if (type.isPrimitive() || object instanceof Number || object instanceof String) {
+        if (object instanceof Number || object instanceof String) {
             return object;
         } else if (type.isArray()) {
-            return parseArray((Object[]) object);
+            return parseArray((Object) object);
         } else if (object instanceof Collection) {
             return parseArray(((Collection) object).toArray());
         } else if (object instanceof Map) {
@@ -54,10 +55,11 @@ public class JsonSerializer {
         return json;
     }
 
-    private Object parseArray(Object[] array) {
+    private Object parseArray(Object array) {
         JSONArray jArray = new JSONArray();
-        for (Object object : array) {
-            jArray.add(parse(object));
+        int arrlength = Array.getLength(array);
+        for (int i = 0; i < arrlength; ++i) {
+            jArray.add(parse(Array.get(array, i)));
         }
         return jArray;
     }

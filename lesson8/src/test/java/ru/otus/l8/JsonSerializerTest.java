@@ -28,6 +28,12 @@ public class JsonSerializerTest {
     }
 
     @Test
+    public void serializePrimitiveArray() {
+        int [] arr = {1,2,3};
+        assertEquals(gson.toJson(arr), serializer.toJson(arr));
+    }
+
+    @Test
     public void serializeArray() {
         String[] arr = {"First", "Second"};
 
