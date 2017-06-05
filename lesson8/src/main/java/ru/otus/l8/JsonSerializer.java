@@ -23,7 +23,7 @@ public class JsonSerializer {
         if (object instanceof Number || object instanceof String) {
             return object;
         } else if (type.isArray()) {
-            return parseArray((Object) object);
+            return parseArray(object);
         } else if (object instanceof Collection) {
             return parseArray(((Collection) object).toArray());
         } else if (object instanceof Map) {
