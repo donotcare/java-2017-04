@@ -4,10 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Phones")
-public class PhoneDataSet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class PhoneDataSet extends DataSet {
+
     private int code;
     private String number;
 
@@ -17,14 +15,6 @@ public class PhoneDataSet {
     public PhoneDataSet(String number, int code) {
         this.number = number;
         this.code = code;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public int getCode() {
@@ -50,7 +40,6 @@ public class PhoneDataSet {
 
         PhoneDataSet that = (PhoneDataSet) o;
 
-        if (id != that.id) return false;
         if (code != that.code) return false;
         return number != null ? number.equals(that.number) : that.number == null;
 
@@ -58,8 +47,7 @@ public class PhoneDataSet {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + code;
+        int result = code;
         result = 31 * result + (number != null ? number.hashCode() : 0);
         return result;
     }

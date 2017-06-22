@@ -9,10 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Users")
-public class UserDataSet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class UserDataSet extends DataSet {
 
     @Column(name = "name")
     private String personName;
@@ -59,13 +56,6 @@ public class UserDataSet {
         phones.add(phone);
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     @Override
     public boolean equals(Object o) {

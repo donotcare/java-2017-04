@@ -1,15 +1,14 @@
 package dao;
 
 
+import model.DataSet;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class AbstractDAO<T> implements DAO<T> {
+public class AbstractDAO<T extends DataSet> implements DAO<T> {
     private final Class<T> persistentClass;
     private Session session;
 

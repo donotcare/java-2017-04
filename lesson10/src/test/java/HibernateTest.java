@@ -1,7 +1,8 @@
+import config.DBConfigHibernate;
 import model.PhoneDataSet;
 import model.UserDataSet;
 import org.junit.Test;
-import config.DBConfigHibernate;
+import service.DBService;
 import service.UsersService;
 
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public class HibernateTest {
 
     @Test
     public void persistAndGet() throws SQLException {
-        UsersService service = new UsersService();
+        DBService<UserDataSet> service = new UsersService();
         UserDataSet user = new UserDataSet(10, "Ivan");
         PhoneDataSet phone = new PhoneDataSet("29329323", 212);
         user.addPhone(phone);

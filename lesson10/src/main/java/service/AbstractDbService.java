@@ -2,13 +2,14 @@ package service;
 
 import config.DBConfigHibernate;
 import dao.DAO;
+import model.DataSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractDbService<T> {
+public abstract class AbstractDbService<T extends DataSet> implements DBService<T> {
 
     public void save(T dataSet) {
         try (Session session = DBConfigHibernate.getSession()) {
@@ -31,7 +32,7 @@ public abstract class AbstractDbService<T> {
         });
     }
 
-    private <R> R runInSession(Function<Session, R> function) {
+    protected <R> R runInSession(Function<Session, R> function) {
         try (Session session = DBConfigHibernate.getSession()) {
             Transaction transaction = session.beginTransaction();
             R result = function.apply(session);

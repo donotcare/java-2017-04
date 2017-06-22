@@ -4,10 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "addresses")
-public class AddressDataSet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class AddressDataSet extends DataSet{
+
     private String street;
     private int index;
 

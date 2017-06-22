@@ -1,4 +1,11 @@
 package service;
 
-public interface DBService {
+import model.DataSet;
+
+import java.util.List;
+
+public interface DBService<T extends DataSet> {
+    void save(T dataSet);
+    T read(long id);
+    List<T> readAll();
 }
