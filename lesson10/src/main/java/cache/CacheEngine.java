@@ -9,10 +9,7 @@ import java.util.function.Function;
 public class CacheEngine<K, V> implements Cache<K, V> {
     private static final int TIME_THRESHOLD_MS = 5;
 
-    private final int maxElements;
-    private final long lifeTimeMs;
-    private final long idleTimeMs;
-    private final boolean isEternal;
+    private final CacheSettings settings;
 
     private final Map<K, CacheElement<K, V>> elements = new ConcurrentHashMap<>();
     private final Timer timer = new Timer();
@@ -20,16 +17,13 @@ public class CacheEngine<K, V> implements Cache<K, V> {
     private int hit = 0;
     private int miss = 0;
 
-    public CacheEngine(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal) {
-        this.maxElements = maxElements;
-        this.lifeTimeMs = lifeTimeMs;
-        this.idleTimeMs = idleTimeMs;
-        this.isEternal = isEternal;
+    public CacheEngine(CacheSettings settings) {
+        this.settings = settings;
     }
 
     @Override
     public void put(CacheElement<K, V> element) {
-        if (elements.size() == maxElements) {
+        if (elements.size() == settings.getMaxElements()) {
             K key = elements.keySet().iterator().next();
             elements.remove(key);
         }
@@ -37,14 +31,14 @@ public class CacheEngine<K, V> implements Cache<K, V> {
         K key = element.getKey();
         elements.put(key, element);
 
-        if (!isEternal) {
-            if (lifeTimeMs != 0) {
-                TimerTask lifeTimerTask = getTimerTask(key, lifeElement -> lifeElement.getCreationTime() + lifeTimeMs);
-                timer.schedule(lifeTimerTask, lifeTimeMs);
+        if (!settings.isEternal()) {
+            if (settings.getLifeTimeMs() != 0) {
+                TimerTask lifeTimerTask = getTimerTask(key, lifeElement -> lifeElement.getCreationTime() + settings.getLifeTimeMs());
+                timer.schedule(lifeTimerTask, settings.getLifeTimeMs());
             }
-            if (idleTimeMs != 0) {
-                TimerTask idleTimerTask = getTimerTask(key, idleElement -> idleElement.getLastAccessTime() + idleTimeMs);
-                timer.schedule(idleTimerTask, idleTimeMs);
+            if (settings.getIdleTimeMs() != 0) {
+                TimerTask idleTimerTask = getTimerTask(key, idleElement -> idleElement.getLastAccessTime() + settings.getIdleTimeMs());
+                timer.schedule(idleTimerTask, settings.getIdleTimeMs());
             }
         }
     }
@@ -90,6 +84,17 @@ public class CacheEngine<K, V> implements Cache<K, V> {
         };
     }
 
+    public void clear() {
+        elements.clear();
+    }
+
+    public int getCachedElementsCount() {
+        return elements.size();
+    }
+
+    public CacheSettings getSettings() {
+        return settings;
+    }
 
     private boolean isT1BeforeT2(long t1, long t2) {
         return t1 < t2 + TIME_THRESHOLD_MS;

@@ -1,0 +1,54 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cache</title>
+    <script>
+        function clear_stat() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open('POST', 'settings?command=clear', true);
+            xhttp.send();
+            refresh();
+        }
+        function refresh() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE && this.status == 200) {
+                    var statistics = JSON.parse(this.responseText);
+                    document.getElementById("hit").value = statistics.hit;
+                    document.getElementById("miss").value = statistics.miss;
+                    document.getElementById("cached").value = statistics.cached;
+                }
+            };
+            xhttp.open('GET', 'settings?command=statistics', true);
+            xhttp.send();
+        }
+    </script>
+</head>
+<body>
+<p>Cache settings</p>
+<div class="settings">
+    <form action="settings" method="POST">
+        maxElements: <input type="text" id="maxElements" value="${cacheSettings.getMaxElements()}"/>
+        <br> <br>
+        lifeTimeMs: <input type="text" id="lifeTimeMs" value="${cacheSettings.getLifeTimeMs()}"/>
+        <br> <br>
+        idleTimeMs: <input type="text" id="idleTimeMs" value="${cacheSettings.getIdleTimeMs()}"/>
+        <br> <br>
+        isEternal: <input type="checkbox" id="isEternal" checked="${cacheSettings.isEternal()?c}"/>
+        <br> <br>
+        <input type="submit" value="submit">
+    </form>
+</div>
+<p>Statistics</p>
+hit: <input type="text" id="hit" value="${hit}" readonly/>
+<br> <br>
+miss: <input type="text" id="miss" value="${miss}" readonly/>
+<br> <br>
+cached: <input type="text" id="cached" value="${cached}" readonly/>
+<button onclick="clear_stat()">Clear</button>
+<br> <br>
+<button onclick="refresh()">Refresh</button>
+
+</body>
+</html>
+
