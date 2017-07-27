@@ -1,15 +1,14 @@
 package service;
 
-import cache.CacheEngine;
 import cache.CacheElement;
+import cache.CacheEngine;
 import model.UserDataSet;
-
 
 import java.util.List;
 
 public class UsersCachedService implements DBService<UserDataSet> {
-    private DBService<UserDataSet> service;
-    private CacheEngine<Long, UserDataSet> cache;
+    private final DBService<UserDataSet> service;
+    private final CacheEngine<Long, UserDataSet> cache;
 
     public UsersCachedService(DBService<UserDataSet> service, CacheEngine<Long, UserDataSet> cache) {
         this.service = service;

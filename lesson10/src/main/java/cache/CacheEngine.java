@@ -1,15 +1,19 @@
 package cache;
 
+import service.message.Address;
+import service.message.Addressee;
+
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class CacheEngine<K, V> implements Cache<K, V> {
+public class CacheEngine<K, V> implements Cache<K, V>, Addressee {
     private static final int TIME_THRESHOLD_MS = 5;
 
     private final CacheSettings settings;
+    private final Address address;
 
     private final Map<K, CacheElement<K, V>> elements = new ConcurrentHashMap<>();
     private final Timer timer = new Timer();
@@ -17,7 +21,8 @@ public class CacheEngine<K, V> implements Cache<K, V> {
     private int hit = 0;
     private int miss = 0;
 
-    public CacheEngine(CacheSettings settings) {
+    public CacheEngine(Address address, CacheSettings settings) {
+        this.address = address;
         this.settings = settings;
     }
 
@@ -98,5 +103,10 @@ public class CacheEngine<K, V> implements Cache<K, V> {
 
     private boolean isT1BeforeT2(long t1, long t2) {
         return t1 < t2 + TIME_THRESHOLD_MS;
+    }
+
+    @Override
+    public Address getAddress() {
+        return address;
     }
 }
