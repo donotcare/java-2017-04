@@ -9,7 +9,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>config.SpringConfig</param-value>
+        <param-value>ru.otus.l10.SpringConfig</param-value>
     </context-param>
 
     <listener>
@@ -18,12 +18,17 @@
 
     <servlet>
         <servlet-name>loginServlet</servlet-name>
-        <servlet-class>web.LoginServlet</servlet-class>
+        <servlet-class>ru.otus.l10.web.LoginServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>settingsServlet</servlet-name>
-        <servlet-class>web.SettingsServlet</servlet-class>
+        <servlet-class>ru.otus.l10.web.SettingsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>messageWebSocketServlet</servlet-name>
+        <servlet-class>ru.otus.l10.websocket.MessageWebSocketServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -34,6 +39,11 @@
     <servlet-mapping>
         <servlet-name>settingsServlet</servlet-name>
         <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>messageWebSocketServlet</servlet-name>
+        <url-pattern>/message</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
