@@ -85,9 +85,6 @@
                     <warSourceDirectory>web-app</warSourceDirectory>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>jetty-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 

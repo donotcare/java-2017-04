@@ -4,10 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.otus</groupId>
     <artifactId>lesson1</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <parent>
+        <artifactId>lessons</artifactId>
+        <groupId>ru.otus</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <properties>
         <net.sf.opencsv.version>2.3</net.sf.opencsv.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -33,7 +36,7 @@
                             <mainClass>ru.otus.lesson1.l4.Main</mainClass>
                         </manifest>
                     </archive>
-                    <finalName>${project.name}_${os.name}</finalName>
+                    <finalName>${project.personName}_${os.personName}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
