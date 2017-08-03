@@ -1,4 +1,4 @@
-package ru.otus.l16.message.system;
+package ru.otus.l16.message.server;
 
 public class Address {
     private final String id;

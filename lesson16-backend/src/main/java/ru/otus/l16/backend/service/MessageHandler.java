@@ -3,11 +3,11 @@ package ru.otus.l16.backend.service;
 import ru.otus.l16.backend.Main;
 import ru.otus.l16.backend.cache.CacheEngine;
 import ru.otus.l16.message.ClientUtils;
-import ru.otus.l16.message.system.PingMessage;
+import ru.otus.l16.message.server.PingMessage;
 import ru.otus.l16.message.channel.SocketClientChannel;
-import ru.otus.l16.message.system.Address;
-import ru.otus.l16.message.system.Message;
-import ru.otus.l16.message.system.MessageGetCacheStatAnswer;
+import ru.otus.l16.message.server.Address;
+import ru.otus.l16.message.Message;
+import ru.otus.l16.message.server.MessageGetCacheStatAnswer;
 
 import java.io.IOException;
 import java.net.Socket;

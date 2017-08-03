@@ -1,10 +1,8 @@
 package ru.otus.l16.message.server;
 
+import ru.otus.l16.message.Message;
 import ru.otus.l16.message.channel.MsgChannel;
 import ru.otus.l16.message.channel.SocketClientChannel;
-import ru.otus.l16.message.system.Address;
-import ru.otus.l16.message.system.Message;
-import ru.otus.l16.message.system.MessageSystem;
 
 import java.net.ServerSocket;
 import java.net.Socket;

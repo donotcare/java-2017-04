@@ -1,6 +1,6 @@
 package ru.otus.l16.message;
 
-import ru.otus.l16.message.system.Address;
+import ru.otus.l16.message.server.Address;
 
 public class ClientUtils {
 

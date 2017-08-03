@@ -1,6 +1,6 @@
 package ru.otus.l16.message.channel;
 
-import ru.otus.l16.message.system.Message;
+import ru.otus.l16.message.Message;
 
 import java.io.IOException;
 

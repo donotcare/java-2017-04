@@ -1,6 +1,6 @@
-package ru.otus.l16.message.system;
+package ru.otus.l16.message.server;
 
-import ru.otus.l16.message.service.FrontService;
+import ru.otus.l16.message.Message;
 
 public class MessageGetCacheStatAnswer extends Message {
     private final String cacheData;

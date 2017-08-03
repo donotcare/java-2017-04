@@ -2,9 +2,9 @@ package ru.otus.l16.message;
 
 import ru.otus.l16.message.runner.ProcessRunnerImpl;
 import ru.otus.l16.message.server.SocketServer;
-import ru.otus.l16.message.service.BalancerService;
-import ru.otus.l16.message.service.FrontService;
-import ru.otus.l16.message.system.MessageSystem;
+import ru.otus.l16.message.server.BalancerService;
+import ru.otus.l16.message.server.FrontService;
+import ru.otus.l16.message.server.MessageSystem;
 
 import java.io.IOException;
 import java.util.concurrent.Executors;

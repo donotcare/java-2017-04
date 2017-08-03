@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import ru.otus.l16.message.system.Message;
+import ru.otus.l16.message.Message;
 
 import java.io.BufferedReader;
 import java.io.IOException;

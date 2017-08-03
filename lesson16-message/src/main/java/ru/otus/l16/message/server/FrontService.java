@@ -1,10 +1,6 @@
-package ru.otus.l16.message.service;
+package ru.otus.l16.message.server;
 
 import ru.otus.l16.message.ClientUtils;
-import ru.otus.l16.message.server.SocketServer;
-import ru.otus.l16.message.system.Address;
-import ru.otus.l16.message.system.Addressee;
-import ru.otus.l16.message.system.FrontResponseMessage;
 
 import java.util.logging.Logger;
 

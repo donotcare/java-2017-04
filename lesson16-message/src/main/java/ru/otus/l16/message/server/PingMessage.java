@@ -1,6 +1,6 @@
-package ru.otus.l16.message.system;
+package ru.otus.l16.message.server;
 
-import ru.otus.l16.message.service.BalancerService;
+import ru.otus.l16.message.Message;
 
 public class PingMessage extends Message {
     private final long time;

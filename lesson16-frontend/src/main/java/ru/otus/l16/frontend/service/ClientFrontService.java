@@ -3,9 +3,9 @@ package ru.otus.l16.frontend.service;
 import org.eclipse.jetty.websocket.api.Session;
 import ru.otus.l16.message.ClientUtils;
 import ru.otus.l16.message.channel.SocketClientChannel;
-import ru.otus.l16.message.system.Address;
-import ru.otus.l16.message.system.FrontResponseMessage;
-import ru.otus.l16.message.system.MessageGetCacheStat;
+import ru.otus.l16.message.server.Address;
+import ru.otus.l16.message.server.FrontResponseMessage;
+import ru.otus.l16.message.server.MessageGetCacheStat;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

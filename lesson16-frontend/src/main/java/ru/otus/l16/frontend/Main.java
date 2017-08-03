@@ -12,7 +12,7 @@ import ru.otus.l16.frontend.web.TemplateProccesor;
 import ru.otus.l16.frontend.websocket.MessageWebSocketServlet;
 import ru.otus.l16.message.ClientUtils;
 import ru.otus.l16.message.channel.SocketClientChannel;
-import ru.otus.l16.message.system.Address;
+import ru.otus.l16.message.server.Address;
 
 import java.net.Socket;
 import java.util.logging.Level;

@@ -1,4 +1,7 @@
-package ru.otus.l16.message.system;
+package ru.otus.l16.message;
+
+import ru.otus.l16.message.server.Address;
+import ru.otus.l16.message.server.Addressee;
 
 public abstract class Message {
     public static final String CLASS_NAME_VARIABLE = "className";

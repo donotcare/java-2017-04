@@ -1,4 +1,6 @@
-package ru.otus.l16.message.system;
+package ru.otus.l16.message.server;
+
+import ru.otus.l16.message.Message;
 
 import java.util.HashMap;
 import java.util.Map;
