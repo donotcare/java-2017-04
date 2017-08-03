@@ -15,17 +15,10 @@
     </properties>
 
     <modules>
-        <module>lesson1</module>
-        <module>lesson2</module>
-        <module>lesson3</module>
-        <module>lesson4/lesson4.jar</module>
-        <module>lesson4/lesson4.run</module>
-        <module>lesson5</module>
-        <module>lesson7</module>
-        <module>lesson8</module>
-        <module>lesson9</module>
-        <module>lesson10</module>
-        <module>lesson14</module>
+
+        <module>lesson16-backend</module>
+        <module>lesson16-frontend</module>
+        <module>lesson16-message</module>
     </modules>
 
 

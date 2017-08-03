@@ -1,17 +1,17 @@
-package ru.otus.l10.websocket;
+package ru.otus.l16.frontend.websocket;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
-import ru.otus.l10.message.FrontService;
+import ru.otus.l16.frontend.service.ClientFrontService;
 
 @WebSocket
 public class MessageWebSocket {
     private Session session;
-    private FrontService frontService;
+    private ClientFrontService frontService;
 
-    public MessageWebSocket(FrontService frontService) {
+    public MessageWebSocket(ClientFrontService frontService) {
         this.frontService = frontService;
     }
 

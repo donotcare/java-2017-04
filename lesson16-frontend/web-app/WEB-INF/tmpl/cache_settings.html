@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cache</title>
+    <script>
+        init = function () {
+            ws = new WebSocket("ws://localhost:${port}/message");
+            ws.onopen = function (event) {
+
+            };
+            ws.onmessage = function (event) {
+                var statistics = JSON.parse(event.data);
+                document.getElementById("hit").value = statistics.hit;
+                document.getElementById("miss").value = statistics.miss;
+                document.getElementById("cached").value = statistics.cached;
+            };
+            ws.onclose = function (event) {
+
+            }
+        };
+
+        function sendMessage() {
+            var message = "get_cached";
+            ws.send(message);
+        }
+    </script>
+</head>
+<body onload="init();">
+<p>Statistics</p>
+hit: <input type="text" id="hit" value="0" readonly/>
+<br> <br>
+miss: <input type="text" id="miss" value="0" readonly/>
+<br> <br>
+cached: <input type="text" id="cached" value="0" readonly/>
+
+<button onclick="sendMessage()">Get cached</button>
+
+</body>
+</html>
+
