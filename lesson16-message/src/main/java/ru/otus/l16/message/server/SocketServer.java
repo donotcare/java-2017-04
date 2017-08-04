@@ -36,7 +36,7 @@ public class SocketServer {
     }
 
     public void start() throws Exception {
-        executor.submit(this::mirror);
+        executor.submit(this::getMessage);
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             logger.info("Server started on port: " + serverSocket.getLocalPort());
@@ -51,7 +51,7 @@ public class SocketServer {
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
-    private Object mirror() throws InterruptedException {
+    private void getMessage() {
         while (true) {
             for (MsgChannel channel : channels) {
                 Message msg = channel.pool();
@@ -61,7 +61,11 @@ public class SocketServer {
                     messageSystem.sendMessage(msg);
                 }
             }
-            Thread.sleep(MIRROR_DELAY);
+            try {
+                Thread.sleep(MIRROR_DELAY);
+            } catch(InterruptedException e) {
+                logger.info(e.getMessage());
+            }
         }
     }
 

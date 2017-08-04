@@ -17,7 +17,7 @@ public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     private static final String START_COMMAND = "java -jar ";
-    private static final int CLIENT_START_DELAY_SEC = 15;
+    private static final int CLIENT_START_DELAY_SEC = 5;
 
     public static void main(String[] args) throws Exception {
         new Main().start();
