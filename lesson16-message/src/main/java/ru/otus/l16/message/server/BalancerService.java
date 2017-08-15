@@ -39,6 +39,11 @@ public class BalancerService implements Addressee {
         backendAddresses.add(address);
     }
 
+    public void removeBackendAddress(Address address) {
+        logger.info("Remove back address");
+        backendAddresses.remove(address);
+    }
+
     @Override
     public Address getAddress() {
         return ClientUtils.getBalancerAddress();

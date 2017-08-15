@@ -1,5 +1,6 @@
 package ru.otus.l16.message.server;
 
+import ru.otus.l16.message.ClientUtils;
 import ru.otus.l16.message.Message;
 import ru.otus.l16.message.channel.MsgChannel;
 import ru.otus.l16.message.channel.SocketClientChannel;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 public class SocketServer {
@@ -44,12 +46,23 @@ public class SocketServer {
                 Socket client = serverSocket.accept();
                 logger.info("New client");
                 SocketClientChannel channel = new SocketClientChannel(client);
-                channel.addShutdownRegistration(() -> channels.remove(channel));
+                channel.addShutdownRegistration(() -> closedChannelRemove(channel));
                 channel.init();
                 channels.add(channel);
 
             }
         }
+    }
+
+    private void closedChannelRemove(MsgChannel channel) {
+        channels.remove(channel);
+        List<Address> addressesToRemove = channelAddresses.entrySet().stream()
+                .filter(e -> e.getValue() == channel)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        addressesToRemove.forEach(channelAddresses::remove);
+        Address balancerAddress = ClientUtils.getBalancerAddress();
+        messageSystem.sendMessage(new RemoveBackendAddressesMessage(addressesToRemove, balancerAddress));
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -65,7 +78,7 @@ public class SocketServer {
             }
             try {
                 Thread.sleep(MIRROR_DELAY);
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 logger.info(e.getMessage());
             }
         }
