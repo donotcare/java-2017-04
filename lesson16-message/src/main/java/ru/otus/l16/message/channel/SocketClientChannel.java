@@ -11,10 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.List;
+import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,15 +26,21 @@ public class SocketClientChannel implements MsgChannel {
     private final ExecutorService executor;
 
     private final Socket client;
+    private final List<Runnable> shutdownRegistrations;
 
     public SocketClientChannel(Socket client) {
         this.client = client;
+        this.shutdownRegistrations = new CopyOnWriteArrayList<>();
         this.executor = Executors.newFixedThreadPool(WORKERS_COUNT);
     }
 
     public void init() {
         executor.execute(this::sendMessage);
         executor.execute(this::receiveMessage);
+    }
+
+    public void addShutdownRegistration(Runnable runnable) {
+        this.shutdownRegistrations.add(runnable);
     }
 
     private void receiveMessage() {
@@ -54,6 +58,7 @@ public class SocketClientChannel implements MsgChannel {
             }
         } catch (IOException | ParseException e) {
             logger.log(Level.SEVERE, e.getMessage());
+            close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -78,6 +83,7 @@ public class SocketClientChannel implements MsgChannel {
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage());
         }
+        close();
     }
 
     @Override
@@ -96,7 +102,10 @@ public class SocketClientChannel implements MsgChannel {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
+        shutdownRegistrations.forEach(Runnable::run);
+        shutdownRegistrations.clear();
+
         executor.shutdown();
     }
 }

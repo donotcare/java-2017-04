@@ -44,8 +44,10 @@ public class SocketServer {
                 Socket client = serverSocket.accept();
                 logger.info("New client");
                 SocketClientChannel channel = new SocketClientChannel(client);
+                channel.addShutdownRegistration(() -> channels.remove(channel));
                 channel.init();
                 channels.add(channel);
+
             }
         }
     }
@@ -56,7 +58,7 @@ public class SocketServer {
             for (MsgChannel channel : channels) {
                 Message msg = channel.pool();
                 if (msg != null) {
-                    logger.info("From:" + msg.getFrom());
+                    logger.info("From: " + msg.getFrom());
                     channelAddresses.putIfAbsent(msg.getFrom(), channel);
                     messageSystem.sendMessage(msg);
                 }
